@@ -1,0 +1,43 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+   Products
+  </div>
+  <div class="panel-body">
+   Content
+
+
+
+   <input type="text" placeholder="Filter products" class="form-control" [(ngModel)]="filterProducts"/>
+   <div class="alert alert-success">
+    Filtered by : {{filterProducts}}
+   </div>
+
+   <table class="table table-bordered" *ngIf="products && products.length">
+   <tr>
+     <th>
+       <button class="btn btn-primary" (click)="toggleImage()">{{showHide ? "Hide Image": "Show Image"}}</button>
+     </th>
+     <th>Product Name</th>
+     <th>Product Price</th>
+     <th>Product Quantity</th>
+     <th>Product Quality</th>
+     <th>Product Ratings</th>
+   </tr>
+
+   <!-- For filtering the products -->
+   <tr *ngFor="let product of products | products: filterProducts" >
+     <td>
+       <span *ngIf="showHide">{{product.productId}}</span>
+     </td>
+     <td>{{product.productName}}</td>
+     <td>{{product.productPrice}}</td>
+     <td>{{product.productQuantity}}</td>
+     <td>{{product.productQuality}}</td>
+     <td>
+    <app-rating [rating]="product.productRating" (ratingEvent)="sendDataParent($event)"></app-rating>
+     </td>
+   </tr>
+
+   </table>
+  </div>
+</div>
